@@ -1,0 +1,39 @@
+diff -up sigal-2.3/tests/test_video.py.orig sigal-2.3/tests/test_video.py
+--- sigal-2.3/tests/test_video.py.orig	2022-06-20 12:48:48.381299468 +0200
++++ sigal-2.3/tests/test_video.py	2022-06-20 12:49:12.168452153 +0200
+@@ -64,7 +64,7 @@ def test_metadata(tmpdir):
+     assert video.date == datetime(2020, 1, 1, 9, 0)
+ 
+ 
+-@pytest.mark.parametrize("fmt", ['webm', 'mp4'])
++@pytest.mark.parametrize("fmt", ['webm'])
+ def test_generate_video_fit_height(tmpdir, fmt):
+     """largest fitting dimension is height"""
+ 
+@@ -81,7 +81,7 @@ def test_generate_video_fit_height(tmpdi
+     assert abs(size_dst[0] / size_dst[1] - size_src[0] / size_src[1]) < 2e-2
+ 
+ 
+-@pytest.mark.parametrize("fmt", ['webm', 'mp4'])
++@pytest.mark.parametrize("fmt", ['webm'])
+ def test_generate_video_fit_width(tmpdir, fmt):
+     """largest fitting dimension is width"""
+ 
+@@ -98,7 +98,7 @@ def test_generate_video_fit_width(tmpdir
+     assert abs(size_dst[0] / size_dst[1] - size_src[0] / size_src[1]) < 2e-2
+ 
+ 
+-@pytest.mark.parametrize("fmt", ['webm', 'mp4', 'ogv'])
++@pytest.mark.parametrize("fmt", ['webm', 'ogv'])
+ def test_generate_video_dont_enlarge(tmpdir, fmt):
+     """Video dimensions should not be enlarged."""
+ 
+@@ -113,7 +113,7 @@ def test_generate_video_dont_enlarge(tmp
+ 
+ 
+ @patch('sigal.video.generate_video_pass')
+-@pytest.mark.parametrize("fmt", ['webm', 'mp4'])
++@pytest.mark.parametrize("fmt", ['webm'])
+ def test_second_pass_video(mock_generate_video_pass, fmt, tmpdir):
+     """Video should be run through ffmpeg."""
+     base, ext = os.path.splitext(TEST_VIDEO)
