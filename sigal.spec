@@ -1,6 +1,6 @@
 Name:           sigal
 Version:        2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Static gallery generator
 License:        MIT
 Url:            https://github.com/saimn/sigal
@@ -61,6 +61,9 @@ image resizing, thumbnail creation and HTML page generation.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jun 30 2023 Dan Horák <dan[at]danny.cz> - 2.3-3
+- rebuild
+
 * Mon Jun 20 2022 Dan Horák <dan[at]danny.cz> - 2.3-2
 - allow using ffmpeg-free
 
