@@ -1,11 +1,15 @@
+# workaround for F-39+
+%define _python_dist_allow_version_zero 1
+
 Name:           sigal
 Version:        2.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Static gallery generator
 License:        MIT
 Url:            https://github.com/saimn/sigal
 Source:         https://files.pythonhosted.org/packages/source/s/%{name}/%{name}-%{version}.tar.gz
-Patch0:         sigal-2.3-no-mp4.patch
+Patch1:         0923a56a568c08fd05b0fae2e8c4b7247c1476e0.patch
+Patch2:         sigal-2.3-no-mp4.patch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 # test requirements
@@ -20,6 +24,7 @@ BuildRequires:  python3-natsort
 BuildRequires:  python3-feedgenerator
 BuildRequires:  python3-brotli
 BuildRequires:  python3-cryptography
+BuildRequires:  git-core
 # satisfied by ffmpeg-free from Fedora or by ffmpeg from RPMFusion
 BuildRequires:  /usr/bin/ffmpeg
 Requires:       /usr/bin/ffmpeg
@@ -41,7 +46,7 @@ galleria_. These libraries display the images, Sigal on the other hand does
 image resizing, thumbnail creation and HTML page generation.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S git
 
 %build
 %{py3_build}
@@ -61,6 +66,9 @@ image resizing, thumbnail creation and HTML page generation.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jun 30 2023 Dan Horák <dan[at]danny.cz> - 2.3-4
+- fix tests with newer ffmpeg
+
 * Fri Jun 30 2023 Dan Horák <dan[at]danny.cz> - 2.3-3
 - rebuild
 
