@@ -1,36 +1,19 @@
-# workaround for F-39+
-%define _python_dist_allow_version_zero 1
-
 Name:           sigal
-Version:        2.3
-Release:        4%{?dist}
+Version:        2.4
+Release:        1%{?dist}
 Summary:        Static gallery generator
 License:        MIT
 Url:            https://github.com/saimn/sigal
 Source:         https://files.pythonhosted.org/packages/source/s/%{name}/%{name}-%{version}.tar.gz
-Patch1:         0923a56a568c08fd05b0fae2e8c4b7247c1476e0.patch
-Patch2:         sigal-2.3-no-mp4.patch
+Patch1:         sigal-2.4-no-mp4.patch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-# test requirements
-BuildRequires:  python3-jinja2
-BuildRequires:  python3-markdown
-BuildRequires:  python3-pillow
-BuildRequires:  python3-blinker
-BuildRequires:  python3-click
-BuildRequires:  python3-pilkit
-BuildRequires:  python3-pytest
-BuildRequires:  python3-natsort
-BuildRequires:  python3-feedgenerator
-BuildRequires:  python3-brotli
-BuildRequires:  python3-cryptography
-BuildRequires:  git-core
 # satisfied by ffmpeg-free from Fedora or by ffmpeg from RPMFusion
 BuildRequires:  /usr/bin/ffmpeg
 Requires:       /usr/bin/ffmpeg
 Suggests:       python-boto
 Suggests:       python-cssmin
 BuildArch:      noarch
+
 
 %description
 Sigal is a static gallery generator written in Python with the following
@@ -45,18 +28,25 @@ The idea behind Sigal is to ease the use of the JavaScript libraries like
 galleria_. These libraries display the images, Sigal on the other hand does
 image resizing, thumbnail creation and HTML page generation.
 
+
 %prep
-%autosetup -p1 -S git
+%autosetup -p1
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 
 %install
-%{py3_install}
+%pyproject_install
+
+%pyproject_save_files %{name}
 
 %check
-%pytest tests -k "not (test_build)"
+%tox
 
 
 %files
@@ -65,7 +55,11 @@ image resizing, thumbnail creation and HTML page generation.
 %{_bindir}/%{name}
 %{python3_sitelib}/*
 
+
 %changelog
+* Fri Nov 03 2023 Dan Horák <dan[at]danny.cz> - 2.4-1
+- updated to 2.4
+
 * Fri Jun 30 2023 Dan Horák <dan[at]danny.cz> - 2.3-4
 - fix tests with newer ffmpeg
 
