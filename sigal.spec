@@ -1,5 +1,5 @@
 Name:           sigal
-Version:        2.4
+Version:        2.5
 Release:        1%{?dist}
 Summary:        Static gallery generator
 License:        MIT
@@ -57,6 +57,9 @@ image resizing, thumbnail creation and HTML page generation.
 
 
 %changelog
+* Sat Mar 15 2025 Dan Horák <dan[at]danny.cz> - 2.5-1
+- updated to 2.5
+
 * Fri Nov 03 2023 Dan Horák <dan[at]danny.cz> - 2.4-1
 - updated to 2.4
 
