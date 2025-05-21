@@ -1,17 +1,20 @@
 Name:           sigal
 Version:        2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Static gallery generator
 License:        MIT
 Url:            https://github.com/saimn/sigal
 Source:         https://files.pythonhosted.org/packages/source/s/%{name}/%{name}-%{version}.tar.gz
 Patch1:         sigal-2.4-no-mp4.patch
+Patch2:         sigal-2.5-no-heic.patch
+BuildRequires:  git-core
 BuildRequires:  python3-devel
 # satisfied by ffmpeg-free from Fedora or by ffmpeg from RPMFusion
 BuildRequires:  /usr/bin/ffmpeg
 Requires:       /usr/bin/ffmpeg
-Suggests:       python-boto
-Suggests:       python-cssmin
+Suggests:       python3-boto
+Suggests:       python3-cssmin
+
 BuildArch:      noarch
 
 
@@ -30,7 +33,7 @@ image resizing, thumbnail creation and HTML page generation.
 
 
 %prep
-%autosetup -p1
+%autosetup -S git
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -57,6 +60,9 @@ image resizing, thumbnail creation and HTML page generation.
 
 
 %changelog
+* Wed May 21 2025 Dan Horák <dan[at]danny.cz> - 2.5-2
+- skip HEIC related tests
+
 * Sat Mar 15 2025 Dan Horák <dan[at]danny.cz> - 2.5-1
 - updated to 2.5
 
